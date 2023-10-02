@@ -1,5 +1,7 @@
+/* Importing a font from Google Fonts */
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:200,900');
 
+/* Define custom variables for colors and shadows */
 :root {
   --text-color: hsla(210, 50%, 85%, 1);
   --shadow-color: hsla(210, 40%, 52%, .4);
@@ -11,6 +13,7 @@
   box-sizing: border-box;
 }
 
+/* Set up styles for the entire HTML document */
 html, body {
   width: 100%;
   height: 100%;
@@ -20,19 +23,18 @@ html, body {
   background-color: var(--bg-color);
 }
 
+/* Styles for buttons */
 button {
   position:relative;
   padding: 10px 20px;  
   border: none;
   background: none;
   cursor: pointer;
-  
   font-family: "Source Code Pro";
   font-weight: 900;
   text-transform: uppercase;
   font-size: 30px;  
   color: var(--text-color);
-  
   background-color: var(--btn-color);
   box-shadow: var(--shadow-color) 2px 2px 22px;
   border-radius: 4px; 
@@ -40,6 +42,7 @@ button {
   overflow: hidden;   
 }
 
+/* Remove default focus outline and add custom styles */
 button:focus {
   outline-color: transparent;
   box-shadow: var(--btn-color) 2px 2px 22px;
@@ -60,6 +63,7 @@ button::after{
   left: -20px;
 } 
 
+/* Styles for left and right sections */
 .right, .left {
   position: absolute;
   width: 100%;
@@ -72,29 +76,59 @@ button::after{
 .left {
   right: 66%;
 }
+
+/* Styles for right pseudo-element */
 .right::after {
   top: -30px;
-  left: calc(-66% - 20px);
-  
+  left: calc(-66% - 20px);  
   background-color: var(--bg-color);
   color:transparent;
   transition: transform .4s ease-out;
   transform: translate(0, -90%) rotate(0deg)
 }
 
+
+/* 
+
+Hover effect for right pseudo-element 
+This creates a slight upward movement, giving a sense of lift when you hover in the center
+
+*/
 button:hover .right::after {
   transform: translate(0, -47%) rotate(0deg)
 }
 
+/* 
+
+Hover effect for right section 
+This creates a diagonal movement upwards and slightly to the left, giving a sense of lift and rotation.
+
+*/
 button .right:hover::after {
   transform: translate(0, -50%) rotate(-7deg)
 }
 
+/* 
+
+Hover effect for left section 
+This creates a diagonal movement upwards and slightly to the right, giving a sense of lift and rotation in the opposite direction of the previous effect.
+
+*/
 button .left:hover ~ .right::after {
   transform: translate(0, -50%) rotate(7deg)
 }
 
-/* bubbles */
+/* Styles for bubbles effect */
+
+/*
+background: This property is used to set multiple radial gradients as the background of the pseudo-element. Each radial gradient creates a circular shape with a specific position and size.
+
+radial-gradient(circle at 20% 35%, ...) : This creates a radial gradient circle at 20% from the left and 35% from the top of the pseudo-element. It starts with a transparent color and gradually transitions to var(--text-color).
+
+Similar radial gradients are defined with different positions and sizes to create the bubble effect.
+
+*/
+
 button::before {
   content: '';
   pointer-events: none;
@@ -103,7 +137,6 @@ button::before {
     radial-gradient(circle at 20% 35%,  transparent 0,  transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
     radial-gradient(circle at 75% 44%, transparent 0,  transparent 2px, var(--text-color) 3px, var(--text-color) 4px, transparent 4px),
     radial-gradient(circle at 46% 52%, transparent 0, transparent 4px, var(--text-color) 5px, var(--text-color) 6px, transparent 6px);
-
   width: 100%;
   height: 300%;
   top: 0;
@@ -111,6 +144,16 @@ button::before {
   position: absolute;
   animation: bubbles 5s linear infinite both;
 }
+
+/* Keyframes animation for bubbles effect */
+
+/*
+
+from : represents the starting point of the animation. In this case, it's specifying that at the beginning of the animation, the transform property should be as it is initially.
+
+to : represents the ending point of the animation. It's saying that at the end of the animation, the transform property should be set to translate(0, -66.666%). This means that the element will be moved upwards by 66.666% of its own height.
+
+*/
 
 @keyframes bubbles {
   from {
